@@ -5,7 +5,7 @@ defmodule SmartTexts.Posts.Post do
   schema "posts" do
     field :body, :string
     field :photo_hash, :string
-    field :user_id, :id
+    belongs_to :user, SmartTexts.Users.User
 
     timestamps()
   end

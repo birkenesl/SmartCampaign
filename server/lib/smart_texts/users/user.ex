@@ -5,6 +5,9 @@ defmodule SmartTexts.Users.User do
   schema "users" do
     field :name, :string
     field :password_hash, :string
+    field :password, :string, virtual: true
+
+    has_many :posts, SmartTexts.Posts.Post
 
     timestamps()
   end

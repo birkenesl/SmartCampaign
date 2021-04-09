@@ -1,6 +1,7 @@
 defmodule SmartTextsWeb.PostView do
   use SmartTextsWeb, :view
   alias SmartTextsWeb.PostView
+  alias SmartTextsWeb.UserView
 
   def render("index.json", %{posts: posts}) do
     %{data: render_many(posts, PostView, "post.json")}

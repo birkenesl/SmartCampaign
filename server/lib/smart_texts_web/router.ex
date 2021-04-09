@@ -17,6 +17,7 @@ defmodule SmartTextsWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    get "/photos/:hash", PageController, :photo
   end
 
 
