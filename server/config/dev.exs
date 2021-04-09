@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :smart_texts, SmartTexts.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "smart_texts",
+  password: "tempPassword",
   database: "smart_texts_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
