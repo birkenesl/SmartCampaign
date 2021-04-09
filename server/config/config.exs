@@ -8,7 +8,8 @@
 use Mix.Config
 
 config :smart_texts,
-  ecto_repos: [SmartTexts.Repo]
+  ecto_repos: [SmartTexts.Repo],
+  mix_env: "#{Mix.env()}"
 
 # Configures the endpoint
 config :smart_texts, SmartTextsWeb.Endpoint,
