@@ -3,8 +3,8 @@ defmodule SmartTexts.Repo.Migrations.CreateUsers do
 
   def change do
     create table(:users) do
-      add :name, :string
-      add :password_hash, :string
+      add :name, :string, null: false
+      add :password_hash, :string, null: false
 
       timestamps()
     end

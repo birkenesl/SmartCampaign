@@ -22,6 +22,12 @@ config :smart_texts, SmartTextsWeb.Endpoint,
   check_origin: false,
   watchers: []
 
+config :cors_plug,
+  origin: ["http://localhost:3000"],
+  max_age: 86400,
+  methods: ["GET", "POST", "PATCH", "DELETE"],
+  headers: ["x-auth", "content-type"]
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

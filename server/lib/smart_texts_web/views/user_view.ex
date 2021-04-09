@@ -13,6 +13,6 @@ defmodule SmartTextsWeb.UserView do
   def render("user.json", %{user: user}) do
     %{id: user.id,
       name: user.name,
-      password_hash: user.password_hash}
+    }
   end
 end

@@ -19,10 +19,15 @@ defmodule SmartTextsWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", SmartTextsWeb do
-  #   pipe_through :api
-  # end
+
+   scope "/api/v1", SmartTextsWeb do
+     pipe_through :api
+
+     resources "/users", UserController, except: [:new, :edit]
+     resources "/posts", PostController, except: [:new, :edit]
+     resources "/session", SessionController, only: [:create]
+
+   end
 
   # Enables LiveDashboard only for development
   #
