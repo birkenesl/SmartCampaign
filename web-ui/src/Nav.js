@@ -1,10 +1,12 @@
-import { Nav, Row, Col, Form,
+import { Nav, Row, Col, Form, Navbar,
          Button, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
 import { api_login } from './api';
+
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
 function LoginForm() {
   const [name, setName] = useState("");
@@ -25,7 +27,7 @@ function LoginForm() {
                     type="password"
                     onChange={(ev) => setPass(ev.target.value)}
                     value={pass} />
-      <Button variant="primary" type="submit">
+      <Button variant="dark" type="submit">
         Login
       </Button>
     </Form>
@@ -37,9 +39,9 @@ let SessionInfo = connect()(({session, dispatch}) => {
     dispatch({type: 'session/clear'});
   }
   return (
-    <p>
+    <p className="color-white">
       Logged in as {session.name} &nbsp;
-      <Button onClick={logout}>Logout</Button>
+      <Button  onClick={logout}>Logout</Button>
     </p>
   );
 });
@@ -84,13 +86,16 @@ function AppNav({error}) {
     <div>
       <Row>
         <Col>
-          <Nav variant="pills">
-            <Link to="/">Feed</Link>
-            <Link to="/users">Users</Link>
-          </Nav>
-        </Col>
-        <Col>
-          <LoginOrInfo />
+          <Navbar className = "color-nav" variant="dark">
+            <Navbar.Brand> CampaignSmart</Navbar.Brand>
+            <Nav className="mr-auto">
+              <Link to="/">Feed</Link>
+              <Link to="/users">Users</Link>
+              <Link to="/users/newBusiness">Register as a Business</Link>
+              <Link to="/users/new">Register as a Respondent</Link>
+            </Nav>
+            <LoginOrInfo />
+          </Navbar>
         </Col>
       </Row>
       { error_row }

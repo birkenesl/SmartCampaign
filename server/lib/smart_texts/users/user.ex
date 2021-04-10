@@ -2,10 +2,18 @@ defmodule SmartTexts.Users.User do
   use Ecto.Schema
   import Ecto.Changeset
 
+  # some of the code below attributed to Nat Tuck's photo-blog-spa example code
+
   schema "users" do
     field :name, :string
     field :password_hash, :string
     field :password, :string, virtual: true
+    field :business, :boolean
+    field :age, :string
+    field :gender, :string
+    field :education, :string
+    field :employment, :string
+    field :income, :string
 
     has_many :posts, SmartTexts.Posts.Post
 
@@ -16,7 +24,7 @@ defmodule SmartTexts.Users.User do
   def changeset(user, attrs) do
     password = attrs["password"]
     user
-    |> cast(attrs, [:name, :password])
+    |> cast(attrs, [:name, :password, :business, :age, :gender, :education, :employment, :income])
     |> validate_password
     |> hash_password
     |> validate_required([:name, :password_hash])

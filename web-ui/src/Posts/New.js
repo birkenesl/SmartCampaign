@@ -4,6 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 import { create_post, fetch_posts } from '../api';
 
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
 export default function PostsNew() {
   let history = useHistory();
   let [post, setPost] = useState({});

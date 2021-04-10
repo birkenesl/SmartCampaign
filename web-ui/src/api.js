@@ -1,5 +1,7 @@
 import store from './store';
 
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
 async function api_get(path) {
   let text = await fetch(
     "http://localhost:4000/api/v1" + path, {});

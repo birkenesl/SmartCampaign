@@ -2,6 +2,9 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
 function UsersList({users}) {
   let rows = users.map((user) => (
     <tr key={user.id}>

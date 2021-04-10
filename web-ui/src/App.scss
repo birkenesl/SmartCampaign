@@ -1,1 +1,26 @@
 @import "~bootstrap/scss/bootstrap";
+
+.color-nav {
+  background-color: rgb(63, 114, 175)
+}
+// theme: colorhunt.co/palette/22272
+.color-white {
+  color: rgb(249, 247, 247)
+}
+
+.color-light {
+  color: rgb(219, 226, 239)
+}
+
+.color-blue {
+  color: rgb(63, 114, 175)
+}
+
+.color-dark {
+  color: rgb(17, 45, 78)
+}
+
+.button-dark {
+  background-color: rgb(17, 45, 78);
+  color: rgb(249, 247, 247);
+}

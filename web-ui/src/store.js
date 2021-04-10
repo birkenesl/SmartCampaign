@@ -7,6 +7,8 @@ import { createStore, combineReducers } from 'redux';
 //                        // being edited
 // }
 
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
 function users(state = [], action) {
   switch (action.type) {
     case 'users/set':

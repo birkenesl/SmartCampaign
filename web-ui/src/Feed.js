@@ -2,6 +2,9 @@ import { Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
+
 function photo_path(post) {
   return "http://localhost:4000/photos/" + post.photo_hash;
 }
