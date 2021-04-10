@@ -42,8 +42,8 @@ export function fetch_posts() {
   });
 }
 
-export function api_login(name, password) {
-  api_post("/session", {name, password}).then((data) => {
+export function api_login(email, password) {
+  return api_post("/session", {email, password}).then((data) => {
     console.log("login resp", data);
     if (data.session) {
       let action = {
@@ -51,6 +51,7 @@ export function api_login(name, password) {
         data: data.session,
       }
       store.dispatch(action);
+
     }
     else if (data.error) {
      let action = {
@@ -58,8 +59,10 @@ export function api_login(name, password) {
         data: data.error,
       }
       store.dispatch(action);
+
     }
   });
+
 }
 
 export function create_user(user) {

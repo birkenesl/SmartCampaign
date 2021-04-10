@@ -23,15 +23,15 @@ defmodule Inject do
     hash
   end
 
-  def user(name, pass, business, age, gender, education, employment, income) do
+  def user(name, email, pass, business, age, gender, education, employment, income) do
     hash = Argon2.hash_pwd_salt(pass)
-    Repo.insert!(%User{name: name, password_hash: hash, business: business, age: age,
+    Repo.insert!(%User{name: name, email: email, password_hash: hash, business: business, age: age,
     gender: gender, education: education, employment: employment, income: income})
   end
 end
 
-alice = Inject.user("alice", "test1", false, "under-20", "female", "some college", "student", "$20,000 to $49,999")
-bob = Inject.user("bob", "test2", false, "20-29", "male", "high school graduate", "military", "$50,000 to $74,999")
+alice = Inject.user("alice", "alice@test.com", "test1", true, "under-20", "female", "some college", "student", "$20,000 to $49,999")
+bob = Inject.user("bob", "bob@test.com", "test2", true, "20-29", "male", "high school graduate", "military", "$50,000 to $74,999")
 
 moon = Inject.photo("elephant.jpg")
 nature = Inject.photo("elephant.jpg")

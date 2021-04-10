@@ -6,6 +6,7 @@ defmodule SmartTexts.Users.User do
 
   schema "users" do
     field :name, :string
+    field :email, :string
     field :password_hash, :string
     field :password, :string, virtual: true
     field :business, :boolean
@@ -24,7 +25,7 @@ defmodule SmartTexts.Users.User do
   def changeset(user, attrs) do
     password = attrs["password"]
     user
-    |> cast(attrs, [:name, :password, :business, :age, :gender, :education, :employment, :income])
+    |> cast(attrs, [:name, :email, :password, :business, :age, :gender, :education, :employment, :income])
     |> validate_password
     |> hash_password
     |> validate_required([:name, :password_hash])

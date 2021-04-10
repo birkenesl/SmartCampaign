@@ -8,10 +8,11 @@ import UsersNew from './Users/New';
 import UsersNewBusiness from './Users/NewBusiness'
 import PostsNew from './Posts/New';
 import Feed from './Feed';
-import Home from './Home'
-import Login from './Login'
+import Home from './Home';
+import Login from './Login';
+import Campaigns from './Campaigns'
 
-// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+// Some of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
 function App() {
   return (
@@ -19,10 +20,13 @@ function App() {
       <Nav />
       <Switch>
         <Route path="/" exact>
+          <Home />
+        </Route>
+        <Route path="/feed" exact>
           <Feed />
         </Route>
-        <Route path="/home" exact>
-          <Home />
+        <Route path="/campaigns" exact>
+          <Campaigns />
         </Route>
         <Route path="/posts/new" exact>
           <PostsNew />

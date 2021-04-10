@@ -1,9 +1,8 @@
 import { Row, Col, Card } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
-// Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+// Some of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
 
 function photo_path(post) {
@@ -17,7 +16,7 @@ function Post({post}) {
         <Card.Img variant="top" src={photo_path(post)} />
         <Card.Text>
           Posted by {post.user.name} <br/>
-          {post.offer}
+          {post.body}
         </Card.Text>
       </Card>
     </Col>
@@ -25,29 +24,6 @@ function Post({post}) {
 }
 
 function Feed({posts, session}) {
-  let history = useHistory();
-
-  if (session) {
-    // feed is entirely different if the logged in user is a business account or not.
-    // if the user is a business account, we want to display all of their campaigns that they
-    // created. If the user is a customer account, we want to display all campaigns that
-    // target them.
-    if (session.business) {
-
-    }
-    else {
-
-    }
-
-
-  }
-  else { // users shouldn't be able to get here if they aren't logged in.
-    // so let's redirect them to the login page.
-    history.push("/login");
-
-  }
-
-
   let cards = posts.map((post) => (
     <Post post={post} key={post.id} />
   ));
@@ -55,7 +31,7 @@ function Feed({posts, session}) {
   let new_link = null;
   if (session) {
     new_link = (
-      <p><Link to="/posts/new">New Post</Link></p>
+      <p><Link to="/posts/new">New Campaign</Link></p>
     )
   }
 

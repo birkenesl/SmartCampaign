@@ -19,7 +19,7 @@ export default function PostsNew() {
         console.log("errors", resp.errors);
       }
       else {
-        history.push("/");
+        history.push("/feed");
         fetch_posts();
       }
     });
@@ -31,16 +31,17 @@ export default function PostsNew() {
     setPost(p1);
   }
 
-  function updateBody(ev) {
+
+  function update(field, ev) {
     let p1 = Object.assign({}, post);
-    p1["body"] = ev.target.value;
-    setPost(p1);
+    p1[field] = ev.target.value;
+    setPost(p1)
   }
 
   return (
     <Row>
       <Col>
-        <h2>New Post</h2>
+        <h2>New Campaign</h2>
         <Form onSubmit={submit}>
           <Form.Group>
             <Form.Label>Photo</Form.Label>
@@ -51,9 +52,11 @@ export default function PostsNew() {
             <Form.Label>Text</Form.Label>
             <Form.Control as="textarea"
                           rows={4}
-                          onChange={updateBody}
+                          onChange={
+                            (ev) => update("gender", ev)}
                           value={post.body} />
           </Form.Group>
+
           <Button variant="primary" type="submit">
             Post!
           </Button>

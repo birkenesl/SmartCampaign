@@ -4,9 +4,10 @@ defmodule SmartTexts.Repo.Migrations.CreateUsers do
   def change do
     create table(:users) do
       add :name, :string, null: false
+      add :email, :string, null: false
       add :password_hash, :string, null: false
       add :business, :boolean, null: false
-      add :age, :string 
+      add :age, :string
       add :gender, :string
       add :education, :string
       add :employment, :string

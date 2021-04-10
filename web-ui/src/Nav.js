@@ -8,31 +8,7 @@ import { api_login } from './api';
 
 // Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
-function LoginForm() {
-  const [name, setName] = useState("");
-  const [pass, setPass] = useState("");
 
-  function on_submit(ev) {
-    ev.preventDefault();
-    api_login(name, pass);
-  }
-
-  return (
-    <Form onSubmit={on_submit} inline>
-      <Form.Control name="name"
-                    type="text"
-                    onChange={(ev) => setName(ev.target.value)}
-                    value={name} />
-      <Form.Control name="password"
-                    type="password"
-                    onChange={(ev) => setPass(ev.target.value)}
-                    value={pass} />
-      <Button variant="dark" type="submit">
-        Login
-      </Button>
-    </Form>
-  );
-}
 
 let SessionInfo = connect()(({session, dispatch}) => {
   function logout() {
@@ -83,16 +59,16 @@ function RL({session}) {
     if (session.business == true) {
       return (
         <Nav className="mr-auto">
-          <Link to="/home">Home</Link>
-          <Link to="/">Feed</Link>
+          <Link to="/">Home</Link>
+          <Link to="/feed">Campaigns</Link>
         </Nav>
       );
     }
     else {
       return ( // TODO: change one of these feed links. Or replace home with /
         <Nav className="mr-auto">
-          <Link to="/home">Home</Link>
-          <Link to="/">Feed</Link>
+          <Link to="/">Home</Link>
+          <Link to="/feed">Feed</Link>
         </Nav>
       );
     }
@@ -101,9 +77,9 @@ function RL({session}) {
   else {
     return (
       <Nav className="mr-auto">
-        <Link to="/home">Home</Link>
+        <Link to="/">Home</Link>
         <Link to="/users/newBusiness">Register as a Business</Link>
-        <Link to="/users/new">Register as a Respondent</Link>
+        <Link to="/users/new">Register as a Customer</Link>
       </Nav>
 
     );
@@ -134,15 +110,13 @@ function AppNav({error}) {
       <Row>
         <Col>
 
-            <Navbar className = "color-nav" variant="dark">
-              <Navbar.Brand> CampaignSmart</Navbar.Brand>
+            <Navbar className = "sticky-nav" variant="dark">
               <Container>
+                <Navbar.Brand> CampaignSmart</Navbar.Brand>
                 <RelevantLinks />
-              </Container>
-              <Container>
+
                 <LoginOrInfo />
               </Container>
-
             </Navbar>
 
         </Col>

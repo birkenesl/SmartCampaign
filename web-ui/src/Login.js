@@ -2,24 +2,31 @@ import { Form, Button} from 'react-bootstrap';
 import { useState } from 'react';
 import { api_login } from './api';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
-  const [name, setName] = useState("");
+  let history = useHistory();
+  const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
 
+
   function on_submit(ev) {
+
     ev.preventDefault();
-    api_login(name, pass);
+
+    api_login(email, pass).then(() => {
+      history.push("/");
+    });
   }
 
   return (
     <Form onSubmit={on_submit}>
       <Form.Group>
-        <Form.Label>Username</Form.Label>
-        <Form.Control name="name"
+        <Form.Label>Email</Form.Label>
+        <Form.Control name="email"
                       type="text"
-                      onChange={(ev) => setName(ev.target.value)}
-                      value={name} />
+                      onChange={(ev) => setEmail(ev.target.value)}
+                      value={email} />
 
         <Form.Label>Password</Form.Label>
         <Form.Control name="password"
@@ -33,5 +40,8 @@ function Login() {
     </Form>
   );
 }
-export default connect(
-  ({session}) => ({session}))(Login);
+function state2props(_state) {
+  return {};
+}
+
+export default connect(state2props)(Login);

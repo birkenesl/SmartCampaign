@@ -1,3 +1,6 @@
+
+# All of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
+
 defmodule SmartTexts.Photos do
   def save_photo(name, path) do
     data = File.read!(path)
