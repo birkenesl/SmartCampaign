@@ -40,11 +40,20 @@ function UsersNew() {
     return "";
   }
 
+  function check_name(nm) {
+    if (nm == "") {
+      return "Name can't be blank."
+    }
+
+    return ""
+  }
+
   function update(field, ev) {
     let u1 = Object.assign({}, user);
     u1[field] = ev.target.value;
     u1.password = u1.pass1;
     u1.pass_msg = check_pass(u1.pass1, u1.pass2);
+    u1.name_msg = check_name(u1.name)
     setUser(u1);
   }
 
@@ -56,6 +65,7 @@ function UsersNew() {
                       onChange={
                         (ev) => update("name", ev)}
           value={user.name} />
+        <p>{user.name_msg}</p>
       </Form.Group>
       <Form.Group controlId="exampleForm.ControlSelect1">
         <Form.Label>Select your Age:</Form.Label>
@@ -129,6 +139,7 @@ function UsersNew() {
             (ev) => update("pass1", ev)}
           value={user.pass1} />
         <p>{user.pass_msg}</p>
+
       </Form.Group>
       <Form.Group>
         <Form.Label>Confirm Password</Form.Label>
@@ -138,7 +149,7 @@ function UsersNew() {
           value={user.pass2} />
       </Form.Group>
       <Button variant="primary" type="submit"
-              disabled={user.pass_msg !== ""}>
+              disabled={user.pass_msg !== "" || user.name_msg != ""}>
         Save
       </Button>
     </Form>

@@ -8,6 +8,8 @@ import UsersNew from './Users/New';
 import UsersNewBusiness from './Users/NewBusiness'
 import PostsNew from './Posts/New';
 import Feed from './Feed';
+import Home from './Home'
+import Login from './Login'
 
 // Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
@@ -18,6 +20,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
           <Feed />
+        </Route>
+        <Route path="/home" exact>
+          <Home />
         </Route>
         <Route path="/posts/new" exact>
           <PostsNew />
@@ -30,6 +35,9 @@ function App() {
         </Route>
         <Route path="/users/new" exact>
           <UsersNew />
+        </Route>
+        <Route path="/login" exact>
+          <Login />
         </Route>
       </Switch>
     </Container>

@@ -11,7 +11,7 @@ import { create_user, fetch_users } from '../api';
 function UsersNew() {
   let history = useHistory();
   const [user, setUser] = useState({
-    name: "", pass1: "", pass2: "",
+    name: "", business: true, pass1: "", pass2: "",
   });
 
   function onSubmit(ev) {
@@ -52,15 +52,12 @@ function UsersNew() {
   return (
     <Form onSubmit={onSubmit}>
       <Form.Group>
-        <Form.Label>Name</Form.Label>
+        <Form.Label>Business Name</Form.Label>
         <Form.Control type="text"
                       onChange={
                         (ev) => update("name", ev)}
           value={user.name} />
       </Form.Group>
-
-
-
 
 
       <Form.Group>

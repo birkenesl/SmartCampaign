@@ -1,4 +1,4 @@
-import { Nav, Row, Col, Form, Navbar,
+import { Nav, Row, Col, Form, Navbar, Container,
          Button, Alert } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -39,10 +39,12 @@ let SessionInfo = connect()(({session, dispatch}) => {
     dispatch({type: 'session/clear'});
   }
   return (
-    <p className="color-white">
-      Logged in as {session.name} &nbsp;
-      <Button  onClick={logout}>Logout</Button>
-    </p>
+    <Navbar.Text>
+      <p className="color-white">
+        Logged in as {session.name} &nbsp;
+        <Button  onClick={logout}>Logout</Button>
+      </p>
+    </Navbar.Text>
   );
 });
 
@@ -51,7 +53,11 @@ function LOI({session}) {
     return <SessionInfo session={session} />;
   }
   else {
-    return <LoginForm />;
+    return (
+      <Nav className="mr-auto">
+        <Link to="/login">Login</Link>
+      </Nav>
+    )
   }
 }
 
@@ -68,6 +74,47 @@ function Link({to, children}) {
     </Nav.Item>
   );
 }
+
+
+function RL({session}) {
+
+  if (session) {
+
+    if (session.business == true) {
+      return (
+        <Nav className="mr-auto">
+          <Link to="/home">Home</Link>
+          <Link to="/">Feed</Link>
+        </Nav>
+      );
+    }
+    else {
+      return ( // TODO: change one of these feed links. Or replace home with /
+        <Nav className="mr-auto">
+          <Link to="/home">Home</Link>
+          <Link to="/">Feed</Link>
+        </Nav>
+      );
+    }
+
+  }
+  else {
+    return (
+      <Nav className="mr-auto">
+        <Link to="/home">Home</Link>
+        <Link to="/users/newBusiness">Register as a Business</Link>
+        <Link to="/users/new">Register as a Respondent</Link>
+      </Nav>
+
+    );
+  }
+
+
+
+}
+
+const RelevantLinks = connect(
+  ({session}) => ({session}))(RL);
 
 function AppNav({error}) {
   let error_row = null;
@@ -86,16 +133,18 @@ function AppNav({error}) {
     <div>
       <Row>
         <Col>
-          <Navbar className = "color-nav" variant="dark">
-            <Navbar.Brand> CampaignSmart</Navbar.Brand>
-            <Nav className="mr-auto">
-              <Link to="/">Feed</Link>
-              <Link to="/users">Users</Link>
-              <Link to="/users/newBusiness">Register as a Business</Link>
-              <Link to="/users/new">Register as a Respondent</Link>
-            </Nav>
-            <LoginOrInfo />
-          </Navbar>
+
+            <Navbar className = "color-nav" variant="dark">
+              <Navbar.Brand> CampaignSmart</Navbar.Brand>
+              <Container>
+                <RelevantLinks />
+              </Container>
+              <Container>
+                <LoginOrInfo />
+              </Container>
+
+            </Navbar>
+
         </Col>
       </Row>
       { error_row }
