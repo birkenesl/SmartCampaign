@@ -43,7 +43,15 @@ function Home({session}) {
           <br/>
           <h2 class="text-center">Welcome to CampaignSmart!</h2>
           <h4 class="text-center font-italic">
-            Blah blah blah blah blah landing page
+            Please register for a customer or business account above.
+
+
+          </h4>
+          <br/>
+          <br/>
+          <h4 class="text-center">
+          As a business, receive hidden insight into how customers respond to
+          your ad - with the use of IBM Watson's Tone Analyzer API.
           </h4>
         </Jumbotron>
 

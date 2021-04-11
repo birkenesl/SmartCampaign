@@ -62,7 +62,7 @@ function Campaign({post}) { // campaigns belonging to the current business user
       <Card border="primary" className="text-center">
         <Card.Header>Campaign: {post.title}</Card.Header>
         <Card.Text>
-          <Link to={`/posts/${post.id}`}>Respond</Link>
+          <Link to={`/campaigns/${post.id}`}>Manage</Link>
         </Card.Text>
         <Card.Img variant="bottom" src={photo_path(post)} />
 

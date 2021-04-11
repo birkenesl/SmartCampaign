@@ -1,5 +1,5 @@
-import { Row, Col, Card, Form} from 'react-bootstrap';
-import { Link, useLocation} from 'react-router-dom';
+import { Row, Col, Card, Form, Container, Image, Jumbotron} from 'react-bootstrap';
+import { Link, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { create_post, fetch_post } from './api';
@@ -10,50 +10,128 @@ function photo_path(post) {
 }
 
 function ShowCampaign({posts, session}) {
-  console.log(posts);
-  let location = useLocation();
-  console.log(location);
 
+
+  let params = useParams();
+  let id = params.id;
 
   function grabPost(id) {
-
     for (var i = 0, len = posts.length; i < len; i++) {
-      if (posts[i].id === id) {
-        console.log(posts[i]);
+      //console.log(posts[i].id);
+      if (posts[i].id == id) {
+        //console.log(posts[i]);
         return posts[i];
       }
     }
-    return null;
-
-
   }
 
-  let post = grabPost(location.state);
+  function Response({resp}) {
+    return (
+      <Row>
+        <Col>
+          <Card border="primary" className="text-center">
+            <Card.Header>Rating: {resp.rating} / 5</Card.Header>
+            <Card.Text>
+              Customer: {resp.body}
+            </Card.Text>
+          </Card>
+        </Col>
+      </Row>
 
+    );
+  }
+
+  function ListResponses() {
+
+
+    let resps = post.responses.map((response) => (
+      <Response resp={response} key= {response.id} />
+    ));
+    return (
+      <div>
+        {resps}
+      </div>
+    )
+  }
+
+  function NoResponses() {
+    return (
+      <div>
+        <h5 className="text-center">Looks like nobody has responded yet. </h5>
+      </div>
+  );
+  }
+
+  function AverageRating() {
+
+    let len = post.responses.length;
+    if (len === 0) {
+      return (
+        <NoResponses/>
+      );
+    }
+
+    let soFar = 0;
+    for (var i = 0; i < len; i++) {
+      soFar += post.responses[i].rating
+    }
+    let avg = soFar / len;
+    return (
+      <div>
+        <h3 className="text-center">{avg} / 5</h3>
+      </div>
+    )
+  }
+
+  let post = grabPost(id);
 
 
   return (
-    <div>
-      <Col md="4">
-        <Card border="dark" className="text-center">
-          <Card.Body>
-            <Card.Title>{post.title}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Ad by {post.user.name}</Card.Subtitle>
-            <Card.Text>
-              Promotional Offer: {post.offer}
-            </Card.Text>
-          </Card.Body>
-          <Card.Img variant="bottom" src={photo_path(post)} />
-          <br/>
-        </Card>
-      </Col>
+    <Container>
+      <Jumbotron>
+        <br/>
+        <h1 className="text-center">Dashboard </h1>
+      </Jumbotron>
+      <Row>
+        <Col>
+          <h3 className="text-center font-weight-bold">Campaign Title: {post.title} </h3>
+          <h5 className="text-center font-weight-light">Offer: {post.offer} </h5>
+          <h5 className="text-center font-weight-light">Coupon: {post.coupon} </h5>
 
 
+        </Col>
+      </Row>
+      <Row>
+        <Col className="text-center">
+          <h5 className="text-center">Ad:</h5>
+          <Image src={photo_path(post)} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4 className="text-center font-weight-bold">Average Customer Rating</h4>
+          <AverageRating />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4 className="text-center font-weight-bold">Generated WordCloud</h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4 className="text-center font-weight-bold">Dominant Tone of Responses</h4>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <h4 className="text-center font-weight-bold">Response Tone Graph</h4>
+        </Col>
+      </Row>
 
+      <ListResponses/>
 
-
-
-    </div>
+    </Container>
   )
 
 
