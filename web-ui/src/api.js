@@ -44,11 +44,7 @@ export function fetch_posts() {
 
 export function fetch_post(id) {
   api_get("/posts/" + id).then((data) => {
-    let action = {
-      type: 'posts/get',
-      data: data,
-    }
-    store.dispatch(action);
+    return data;
   });
 }
 

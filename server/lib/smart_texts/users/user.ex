@@ -17,6 +17,7 @@ defmodule SmartTexts.Users.User do
     field :income, :string
 
     has_many :posts, SmartTexts.Posts.Post
+    has_many :responses, SmartTexts.Responses.Response
 
     timestamps()
   end

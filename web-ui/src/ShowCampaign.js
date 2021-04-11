@@ -1,4 +1,4 @@
-import { Row, Col, Card } from 'react-bootstrap';
+import { Row, Col, Card, Form} from 'react-bootstrap';
 import { Link, useLocation} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -47,6 +47,12 @@ function ShowCampaign({posts, session}) {
           <br/>
         </Card>
       </Col>
+
+
+
+
+
+
     </div>
   )
 

@@ -27,6 +27,8 @@ defmodule SmartTextsWeb.Router do
      resources "/users", UserController, except: [:new, :edit]
      resources "/posts", PostController, except: [:new, :edit]
      resources "/session", SessionController, only: [:create]
+     resources "/responses", ResponseController, except: [:new, :edit]
+
 
    end
 

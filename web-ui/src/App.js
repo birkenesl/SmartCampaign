@@ -31,13 +31,13 @@ function App() {
         <Route path="/campaigns" exact>
           <Campaigns />
         </Route>
-        <Route path="/campaigns/show" exact>
+        <Route path="/campaigns/:id">
           <ShowCampaign />
         </Route>
         <Route path="/posts/new" exact>
           <PostsNew />
         </Route>
-        <Route path="/posts/show" exact>
+        <Route path="/posts/:id">
           <Show />
         </Route>
         <Route path="/users" exact>

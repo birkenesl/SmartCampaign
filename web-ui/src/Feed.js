@@ -21,7 +21,7 @@ function Post({post}) { // to be seen by customers
                 Promotional Offer: {post.offer}
               </Card.Text>
               <Card.Text>
-                <Link to={{pathname: "/posts/show", state: post.id}}>Respond</Link>
+                <Link to={`/posts/${post.id}`}>Respond</Link>
               </Card.Text>
             </Card.Body>
             <Card.Img variant="bottom" src={photo_path(post)} />

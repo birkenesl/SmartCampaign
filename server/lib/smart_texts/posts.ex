@@ -41,6 +41,10 @@ defmodule SmartTexts.Posts do
      |> Repo.preload(:user)
   end
 
+  def load_responses(%Post{} = post) do
+    Repo.preload(post, [responses: :user])
+  end
+
   @doc """
   Creates a post.
 
