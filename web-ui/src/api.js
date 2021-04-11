@@ -42,6 +42,19 @@ export function fetch_posts() {
   });
 }
 
+export function fetch_post(id) {
+  api_get("/posts/" + id).then((data) => {
+    let action = {
+      type: 'posts/get',
+      data: data,
+    }
+    store.dispatch(action);
+  });
+}
+
+
+
+
 export function api_login(email, password) {
   return api_post("/session", {email, password}).then((data) => {
     console.log("login resp", data);
@@ -74,8 +87,19 @@ export async function create_post(post) {
   let token = state?.session?.token;
 
   let data = new FormData();
+  data.append("post[title]", post.title);
   data.append("post[photo]", post.photo);
-  data.append("post[body]", post.body);
+  data.append("post[offer]", post.offer);
+  data.append("post[coupon]", post.coupon);
+  data.append("post[age]", post.age);
+  data.append("post[gender]", post.gender);
+  data.append("post[education]", post.education);
+  data.append("post[employment]", post.employment);
+  data.append("post[income]", post.income);
+
+
+
+
   let opts = {
     method: 'POST',
     body: data,
@@ -90,8 +114,11 @@ export async function create_post(post) {
   };
   let text = await fetch(
     "http://localhost:4000/api/v1/posts", opts);
+  console.log(text);
   return await text.json();
 }
+
+
 
 
 export function load_defaults() {

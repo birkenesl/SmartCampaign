@@ -16,7 +16,7 @@ function Home({session}) {
           <br/>
           <h2 class="text-center">Hello, {session.name}</h2>
           <h4 class="text-center font-italic">
-            Ready to start testing ad campaigns?
+            Ready to start testing ad campaigns? Head on over to the Campaigns tab above.
           </h4>
         </div>
       );
@@ -28,7 +28,7 @@ function Home({session}) {
           <br/>
           <h2 class="text-center">Hello, {session.name}</h2>
           <h4 class="text-center font-italic">
-            Ready to start some surveys?
+            Ready to start some surveys? Head on over to the Feed tab above to see what's available.
           </h4>
         </div>
       );

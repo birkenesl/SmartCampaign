@@ -20,9 +20,16 @@ defmodule SmartTextsWeb.PostView do
 
     %{
       id: post.id,
-      body: post.body,
+      title: post.title,
       photo_hash: post.photo_hash,
       user: user,
+      offer: post.offer,
+      coupon: post.coupon,
+      age: post.age,
+      gender: post.gender,
+      education: post.education,
+      employment: post.employment,
+      income: post.income
     }
   end
 end

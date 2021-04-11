@@ -31,6 +31,8 @@ function posts(state = [], action) {
   switch (action.type) {
     case 'posts/set':
       return action.data;
+    case 'posts/get':
+      return action.data;
     default:
       return state;
   }
@@ -63,6 +65,7 @@ function session(state = load_session(), action) {
     save_session(action.data);
     return action.data;
   case 'session/clear':
+
     return null;
   default:
     return state;

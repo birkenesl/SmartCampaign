@@ -26,6 +26,7 @@ defmodule SmartTexts.Users.User do
     password = attrs["password"]
     user
     |> cast(attrs, [:name, :email, :password, :business, :age, :gender, :education, :employment, :income])
+    |> unique_constraint(:email)
     |> validate_password
     |> hash_password
     |> validate_required([:name, :password_hash])

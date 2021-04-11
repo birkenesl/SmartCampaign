@@ -24,13 +24,15 @@ function Login() {
       <Form.Group>
         <Form.Label>Email</Form.Label>
         <Form.Control name="email"
-                      type="text"
+                      type="email"
+                      placeholder="Enter email"
                       onChange={(ev) => setEmail(ev.target.value)}
                       value={email} />
 
         <Form.Label>Password</Form.Label>
         <Form.Control name="password"
                       type="password"
+                      placeholder="Password"
                       onChange={(ev) => setPass(ev.target.value)}
                       value={pass} />
         <Button variant="dark" type="submit">

@@ -8,6 +8,11 @@ defmodule SmartTextsWeb.SessionController do
         user_id: user.id,
         name: user.name,
         email: user.email,
+        age: user.age,
+        gender: user.gender,
+        education: user.education,
+        employment: user.employment,
+        income: user.income,
         business: user.business,
         token: Phoenix.Token.sign(conn, "user_id", user.id)
       }

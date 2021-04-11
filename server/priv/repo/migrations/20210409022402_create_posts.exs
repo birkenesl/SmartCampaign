@@ -3,6 +3,7 @@ defmodule SmartTexts.Repo.Migrations.CreatePosts do
 
   def change do
     create table(:posts) do
+      add :title, :text, null: false
       add :offer, :text, null: false
       add :photo_hash, :string, null: false
       add :user_id, references(:users, on_delete: :nothing), null: false

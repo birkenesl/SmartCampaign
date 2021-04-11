@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import pick from 'lodash/pick';
 
-import { create_user, fetch_users } from '../api';
+import { create_user, fetch_users, fetch_posts, api_login} from '../api';
 
 // Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
 function UsersNew() {
   let history = useHistory();
   const [user, setUser] = useState({
-    name: "", business: false, age: "Under 20", gender: "Male", education: "No Schooling Completed", employment: "Employed", income: "Less than $20,000", pass1: "", pass2: "",
+    name: "", email: "", business: false, age: "Under 20", gender: "Male", education: "No Schooling Completed", employment: "Employed", income: "Less than $20,000", pass1: "", pass2: "",
   });
 
   function onSubmit(ev) {
@@ -19,10 +19,13 @@ function UsersNew() {
     console.log(ev);
     console.log(user);
 
-    let data = pick(user, ['name', 'business', 'password', 'age', 'gender', 'education', 'employment', 'income']);
+    let data = pick(user, ['name', 'email', 'business', 'password', 'age', 'gender', 'education', 'employment', 'income']);
     create_user(data).then(() => {
       fetch_users();
-      history.push("/users");
+      fetch_posts();
+      api_login(user.email, user.password).then(() => {
+        history.push("/");
+      });
     });
   }
 
@@ -45,7 +48,16 @@ function UsersNew() {
       return "Name can't be blank."
     }
 
-    return ""
+    return "";
+  }
+
+
+  function check_email(nm) {
+    if (nm == "") {
+      return "Email can't be blank."
+    }
+
+    return "";
   }
 
   function update(field, ev) {
@@ -54,6 +66,7 @@ function UsersNew() {
     u1.password = u1.pass1;
     u1.pass_msg = check_pass(u1.pass1, u1.pass2);
     u1.name_msg = check_name(u1.name)
+    u1.email_msg = check_email(u1.email)
     setUser(u1);
   }
 
@@ -73,6 +86,14 @@ function UsersNew() {
                           (ev) => update("name", ev)}
             value={user.name} />
           <p>{user.name_msg}</p>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Email</Form.Label>
+          <Form.Control type="text"
+                        onChange={
+                          (ev) => update("email", ev)}
+            value={user.email} />
+          <p>{user.email_msg}</p>
         </Form.Group>
         <Form.Group controlId="exampleForm.ControlSelect1">
           <Form.Label>Select your Age:</Form.Label>

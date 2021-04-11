@@ -3,6 +3,7 @@ import { Nav, Row, Col, Form, Navbar, Container,
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { api_login } from './api';
 
@@ -12,7 +13,9 @@ import { api_login } from './api';
 
 let SessionInfo = connect()(({session, dispatch}) => {
   function logout() {
+
     dispatch({type: 'session/clear'});
+
   }
   return (
     <Navbar.Text>
@@ -25,6 +28,7 @@ let SessionInfo = connect()(({session, dispatch}) => {
 });
 
 function LOI({session}) {
+
   if (session) {
     return <SessionInfo session={session} />;
   }
