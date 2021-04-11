@@ -36,8 +36,25 @@ defmodule SmartTextsWeb.PostController do
   end
 
   def show(conn, %{"id" => id}) do
+
+    user = conn.assigns[:current_user]
+
+
+
+
     post = Posts.get_post!(id)
-    render(conn, "show.json", post: post)
+    #|> Posts.load_responses()
+
+
+    # might not need this stuff below
+    resp = %SmartTexts.Responses.Response{
+      post_id: post.id,
+      user_id: user.id
+    }
+
+    new_response = SmartTexts.Responses.change_response(resp)
+
+    render(conn, "show.json", post: post, new_response: new_response)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do

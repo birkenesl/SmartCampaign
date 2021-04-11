@@ -17,7 +17,7 @@ defmodule SmartTexts.Posts.Post do
     belongs_to :user, SmartTexts.Users.User
 
     has_many :responses, SmartTexts.Responses.Response
-    
+
 
     timestamps()
   end

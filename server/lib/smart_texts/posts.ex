@@ -20,6 +20,7 @@ defmodule SmartTexts.Posts do
   def list_posts do
     Repo.all(Post)
     |> Repo.preload(:user)
+    |> Repo.preload(:responses)
   end
 
   @doc """
@@ -39,8 +40,10 @@ defmodule SmartTexts.Posts do
   def get_post!(id) do
      Repo.get!(Post, id)
      |> Repo.preload(:user)
+     |> Repo.preload(:responses)
   end
 
+  ## no longer using this method for the most part
   def load_responses(%Post{} = post) do
     Repo.preload(post, [responses: :user])
   end

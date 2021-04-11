@@ -78,6 +78,36 @@ export function create_user(user) {
   return api_post("/users", {user});
 }
 
+export async function create_response(response) {
+  let state = store.getState();
+  let token = state?.session?.token;
+
+  let data = new FormData();
+  data.append("response[body]", response.body);
+  data.append("response[rating]", response.rating);
+  data.append("response[post_id]", response.post_id);
+
+  console.log(data)
+
+  let opts = {
+    method: 'POST',
+    body: data,
+    headers: {
+      'x-auth': token,
+    },
+    // fetch will magically do the right thing
+    // with our FormData:
+    //  - It's going to read the file
+    //  - It's going to pick correct headers
+    //  - multipart-form-data
+  };
+
+  let text = await fetch(
+    "http://localhost:4000/api/v1/responses", opts);
+  console.log(text);
+  return await text.json();
+}
+
 export async function create_post(post) {
   let state = store.getState();
   let token = state?.session?.token;

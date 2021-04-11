@@ -13,8 +13,8 @@ defmodule SmartTexts.Responses.Response do
     field :sadness, :float
     field :tentative, :float
 
-    belongs_to :post, Events.Posts.Post
-    belongs_to :user, Events.Users.User
+    belongs_to :post, SmartTexts.Posts.Post
+    belongs_to :user, SmartTexts.Users.User
 
     timestamps()
   end

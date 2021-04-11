@@ -2,7 +2,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { create_post, fetch_posts } from '../api';
+import { create_post,  fetch_posts } from '../api';
 
 // Much of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 

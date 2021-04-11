@@ -4,6 +4,10 @@ defmodule SmartTextsWeb.ResponseController do
   alias SmartTexts.Responses
   alias SmartTexts.Responses.Response
 
+  alias SmartTextsWeb.Plugs
+  plug Plugs.RequireAuth when action
+    in [:create]
+
   action_fallback SmartTextsWeb.FallbackController
 
   def index(conn, _params) do
@@ -12,6 +16,24 @@ defmodule SmartTextsWeb.ResponseController do
   end
 
   def create(conn, %{"response" => response_params}) do
+
+    IO.puts("got here")
+    user = conn.assigns[:current_user]
+
+    response_params = response_params
+    |> Map.put("user_id", user.id)
+    |> Map.put("analytical", 0.0)
+    |> Map.put("anger", 0.0)
+    |> Map.put("confident", 0.0)
+    |> Map.put("fear", 0.0)
+    |> Map.put("joy", 0.0)
+    |> Map.put("sadness", 0.0)
+    |> Map.put("tentative", 0.0)
+
+
+    IO.inspect({:response, response_params})
+
+
     with {:ok, %Response{} = response} <- Responses.create_response(response_params) do
       conn
       |> put_status(:created)
