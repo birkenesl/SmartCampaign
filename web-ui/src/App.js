@@ -10,7 +10,10 @@ import PostsNew from './Posts/New';
 import Feed from './Feed';
 import Home from './Home';
 import Login from './Login';
-import Campaigns from './Campaigns'
+import Campaigns from './Campaigns';
+import ShowCampaign from './ShowCampaign';
+import Show from './Posts/Show'
+
 
 // Some of this code attributed to Nat Tuck's lecture code provided for the photo-blog-spa app
 
@@ -28,8 +31,14 @@ function App() {
         <Route path="/campaigns" exact>
           <Campaigns />
         </Route>
+        <Route path="/campaigns/show" exact>
+          <ShowCampaign />
+        </Route>
         <Route path="/posts/new" exact>
           <PostsNew />
+        </Route>
+        <Route path="/posts/show" exact>
+          <Show />
         </Route>
         <Route path="/users" exact>
           <UsersList />
@@ -43,6 +52,7 @@ function App() {
         <Route path="/login" exact>
           <Login />
         </Route>
+
       </Switch>
     </Container>
   );
