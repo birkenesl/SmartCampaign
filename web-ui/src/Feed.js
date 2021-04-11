@@ -10,7 +10,31 @@ function photo_path(post) {
   return "http://localhost:4000/photos/" + post.photo_hash;
 }
 
-function Post({post}) { // to be seen by customers
+
+function Post({post, session}) { // to be seen by customers
+  for (let i = 0; i < post.responses.length; i++ ) {
+    if (post.responses[i].user_id === session.user_id) { // case where this user should get coupon
+      return (
+            <Col md="4">
+              <Card border="dark" className="text-center">
+                <Card.Body>
+                  <Card.Title>{post.title}</Card.Title>
+                  <Card.Subtitle className="mb-2 text-muted">Ad by {post.user.name}</Card.Subtitle>
+                  <Card.Text>
+                    Promotional Offer: {post.offer}
+                  </Card.Text>
+                  <Card.Title>
+                    Coupon: {post.coupon}
+                  </Card.Title>
+
+                </Card.Body>
+                <Card.Img variant="bottom" src={photo_path(post)} />
+                <br/>
+              </Card>
+            </Col>
+      );
+    }
+  }
   return (
         <Col md="4">
           <Card border="dark" className="text-center">
@@ -23,6 +47,7 @@ function Post({post}) { // to be seen by customers
               <Card.Text>
                 <Link to={`/posts/${post.id}`}>Respond</Link>
               </Card.Text>
+
             </Card.Body>
             <Card.Img variant="bottom" src={photo_path(post)} />
             <br/>
@@ -36,7 +61,11 @@ function Campaign({post}) { // campaigns belonging to the current business user
     <Col md="3">
       <Card border="primary" className="text-center">
         <Card.Header>Campaign: {post.title}</Card.Header>
+        <Card.Text>
+          <Link to={`/posts/${post.id}`}>Respond</Link>
+        </Card.Text>
         <Card.Img variant="bottom" src={photo_path(post)} />
+
       </Card>
     </Col>
   );
@@ -124,7 +153,7 @@ function Feed({posts, session}) {
     else {
       let rel = getRelevantPosts({posts, session});
       let cards = rel.map((post) => (
-        <Post post={post} key={post.id} />
+        <Post post={post} session={session} key={post.id} />
       ));
       return (
         <div>
