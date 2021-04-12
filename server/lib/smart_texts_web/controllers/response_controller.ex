@@ -35,7 +35,7 @@ defmodule SmartTextsWeb.ResponseController do
     |> Map.put("tentative", 0.0)
 
     tones = Tones.read_tones(response_params["body"])
-    IO.inspect(tones)
+    #IO.inspect(tones)
     #IO.inspect(tones[0]["tone_id"])
     #IO.inspect(tones[0]["score"])
     # since tones is usually 2 or 3 elements, we want to update the
@@ -47,10 +47,11 @@ defmodule SmartTextsWeb.ResponseController do
       end
     )
 
+    # some annoying magic to do what I want and update the relevant values.
     response_params = Map.merge(response_params, ibmTones)
 
 
-    IO.inspect({:response, response_params})
+    #IO.inspect({:response, response_params})
 
 
     with {:ok, %Response{} = response} <- Responses.create_response(response_params) do

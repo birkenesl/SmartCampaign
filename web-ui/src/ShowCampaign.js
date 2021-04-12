@@ -3,6 +3,7 @@ import { Link, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { create_post, fetch_post } from './api';
+import {Bar} from 'react-chartjs-2';
 
 
 function photo_path(post) {
@@ -83,6 +84,157 @@ function ShowCampaign({posts, session}) {
     )
   }
 
+  function ToneAnalysis() {
+
+    let len = post.responses.length;
+
+    var analytical = 0;
+    var anger = 0;
+    var confident = 0;
+    var fear = 0;
+    var joy = 0;
+    var sadness = 0;
+    var tentative = 0;
+
+    for (var i = 0; i < len; i++) {
+      analytical += post.responses[i].analytical;
+      anger += post.responses[i].anger;
+      confident += post.responses[i].confident;
+      fear += post.responses[i].fear;
+      joy += post.responses[i].analytical;
+      sadness += post.responses[i].analytical;
+      tentative += post.responses[i].analytical;
+    }
+
+    var arr = [analytical, anger, confident, fear, joy, sadness, tentative];
+
+    let index = arr.indexOf(Math.max(...arr));
+
+    var dominant;
+
+    switch (index) {
+      case 0:
+        dominant = "Analytical";
+        break;
+      case 1:
+        dominant = "Anger";
+        break;
+      case 2:
+        dominant = "Confident";
+        break;
+      case 3:
+        dominant = "Fear";
+        break;
+      case 4:
+        dominant = "Joy";
+        break;
+      case 5:
+        dominant = "Sadness";
+        break;
+      case 6:
+        dominant = "Tentative";
+        break;
+      default:
+        break;
+
+    }
+
+
+    const dataSet = {
+      labels: ['Analytical', 'Anger', 'Confident', 'Fear', 'Joy', 'Sadness', 'Tentative'],
+      datasets: [
+        {
+          label: 'Tone',
+          backgroundColor: 'rgba(75,192,192,1)',
+          borderColor: 'rgba(0,0,0,1)',
+          borderWidth: 2,
+          data: arr
+        }
+      ]
+    }
+
+    return (<Row>
+      <Col>
+        <h4 className="text-center font-weight-bold">Dominant Tone of Responses</h4>
+        <h3 className="text-center font-weight-bold">{dominant}</h3>
+      </Col>
+      <Col>
+        <h4 className="text-center font-weight-bold">Response Tone Graph</h4>
+        <Bar
+          data={dataSet}
+          options={{
+            title: {
+              display:true,
+              text:'Overall Average Response Tones',
+              fontsize:20
+            },
+            legend:{
+              display:true,
+              position:'right'
+            }
+          }}
+          />
+      </Col>
+    </Row>);
+  }
+
+  async function WordCloud() {
+
+    let len = post.responses.length;
+    if (len === 0) {
+      return (
+        <NoResponses/>
+      );
+    }
+
+
+
+    let allText = "";
+
+    for (var i = 0; i < len; i++) {
+      allText += post.responses[i].body
+    }
+
+    // we will pass this large text field containing all response bodies
+    // to a quickchart api which will return a wordcloud for us.
+
+    // we need to make a post request and pass a couple important parameters
+    // to get what we need.
+
+
+
+    // sadly this will only work while deployed...
+
+
+
+    // let opts = {
+    //   method: 'GET',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     text: allText,
+    //     format: "png",
+    //     width: 500,
+    //     height: 500,
+    //     removeStopwords: true,
+    //     fontFamily: "sans-serif",
+    //   }),
+    // };
+    // let resp = await fetch(
+    //   "https://quickchart.io/wordcloud/", opts);
+    // let respjs = resp.json();
+    // console.log(respjs);
+
+    return (
+      <div>
+      </div>
+    );
+
+
+
+  }
+
   let post = grabPost(id);
 
 
@@ -116,18 +268,11 @@ function ShowCampaign({posts, session}) {
       <Row>
         <Col>
           <h4 className="text-center font-weight-bold">Generated WordCloud</h4>
+          <WordCloud />
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <h4 className="text-center font-weight-bold">Dominant Tone of Responses</h4>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <h4 className="text-center font-weight-bold">Response Tone Graph</h4>
-        </Col>
-      </Row>
+      <ToneAnalysis/>
+
 
       <ListResponses/>
 
