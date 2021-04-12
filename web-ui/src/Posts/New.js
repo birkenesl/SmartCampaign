@@ -22,8 +22,9 @@ export default function PostsNew() {
         console.log("errors", resp.errors);
       }
       else {
-        history.push("/feed");
         fetch_posts();
+        history.push("/feed");
+
       }
     });
   }

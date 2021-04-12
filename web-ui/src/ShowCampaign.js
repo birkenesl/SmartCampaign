@@ -3,7 +3,6 @@ import { Link, useParams} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { create_post, fetch_post } from './api';
-import {Bar} from 'react-chartjs-2';
 
 
 function photo_path(post) {
@@ -42,7 +41,7 @@ function ShowCampaign({posts, session}) {
     );
   }
 
-  function ListResponses() {
+  function ListResponses({post}) {
 
 
     let resps = post.responses.map((response) => (
@@ -63,7 +62,7 @@ function ShowCampaign({posts, session}) {
   );
   }
 
-  function AverageRating() {
+  function AverageRating({post}) {
 
     let len = post.responses.length;
     if (len === 0) {
@@ -84,7 +83,7 @@ function ShowCampaign({posts, session}) {
     )
   }
 
-  function ToneAnalysis() {
+  function ToneAnalysis({post}) {
 
     let len = post.responses.length;
 
@@ -140,45 +139,53 @@ function ShowCampaign({posts, session}) {
     }
 
 
-    const dataSet = {
-      labels: ['Analytical', 'Anger', 'Confident', 'Fear', 'Joy', 'Sadness', 'Tentative'],
-      datasets: [
-        {
-          label: 'Tone',
-          backgroundColor: 'rgba(75,192,192,1)',
-          borderColor: 'rgba(0,0,0,1)',
-          borderWidth: 2,
-          data: arr
-        }
-      ]
+    const chartObj = {
+      type: 'bar',                                // Show a bar chart
+      data: {
+        labels: ['Analytical', 'Anger', 'Confident', 'Fear', 'Joy', 'Sadness', 'Tentative'],   // Set X-axis labels
+      datasets: [{
+        label: 'Average Tone',
+        data: arr           // Add data to the chart
+      }]
     }
-
-    return (<Row>
-      <Col>
-        <h4 className="text-center font-weight-bold">Dominant Tone of Responses</h4>
-        <h3 className="text-center font-weight-bold">{dominant}</h3>
-      </Col>
-      <Col>
-        <h4 className="text-center font-weight-bold">Response Tone Graph</h4>
-        <Bar
-          data={dataSet}
-          options={{
-            title: {
-              display:true,
-              text:'Overall Average Response Tones',
-              fontsize:20
-            },
-            legend:{
-              display:true,
-              position:'right'
-            }
-          }}
-          />
-      </Col>
-    </Row>);
   }
 
-  async function WordCloud() {
+    // this code attributed to quickchart.io documentation on js-functions
+    const myFormatterFunction = function(value) {
+      return "$" + value
+    };
+    const chartStr = JSON.stringify(chartObj).replace('""', myFormatterFunction.toString());
+
+    console.log(encodeURIComponent(chartStr));
+
+    // let opts = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     backgroundColor: "transparent",
+    //     format: "png",
+    //     width: 500,
+    //     height: 500
+    //   }),
+    // };
+    // let resp = await fetch(
+    //   "https://quickchart.io/chart/create", opts);
+    // let respjs = resp.json();
+    // console.log(respjs);
+
+
+    return (
+      <div>
+        <Row>
+          Hi
+        </Row>
+      </div>
+  );
+  }
+
+  function WordCloud({post}) {
 
     let len = post.responses.length;
     if (len === 0) {
@@ -208,7 +215,7 @@ function ShowCampaign({posts, session}) {
 
 
     // let opts = {
-    //   method: 'GET',
+    //   method: 'POST',
     //   headers: {
     //     'Content-Type': 'application/json'
     //   },
@@ -262,19 +269,21 @@ function ShowCampaign({posts, session}) {
       <Row>
         <Col>
           <h4 className="text-center font-weight-bold">Average Customer Rating</h4>
-          <AverageRating />
+          <AverageRating post={post}/>
         </Col>
       </Row>
       <Row>
         <Col>
           <h4 className="text-center font-weight-bold">Generated WordCloud</h4>
-          <WordCloud />
+          <WordCloud post={post}/>
+
         </Col>
       </Row>
-      <ToneAnalysis/>
 
 
-      <ListResponses/>
+      <ToneAnalysis post={post}/>
+
+      <ListResponses post={post}/>
 
     </Container>
   )
