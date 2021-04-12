@@ -116,7 +116,7 @@ function AppNav({error}) {
 
             <Navbar className = "sticky-nav" variant="dark">
               <Container>
-                <Navbar.Brand> CampaignSmart</Navbar.Brand>
+                <Navbar.Brand>SmartCampaign</Navbar.Brand>
                 <RelevantLinks />
 
                 <LoginOrInfo />
