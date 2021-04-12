@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 
 function photo_path(post) {
-  return "http://localhost:4000/photos/" + post.photo_hash;
+  return "http://smartcampaign.skyflume.com/photos/" + post.photo_hash;
 }
 
 function Post({post}) {

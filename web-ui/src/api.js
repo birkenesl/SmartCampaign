@@ -4,7 +4,7 @@ import store from './store';
 
 async function api_get(path) {
   let text = await fetch(
-    "http://localhost:4000/api/v1" + path, {});
+    "http://smartcampaign.skyflume.com/api/v1" + path, {});
   let resp = await text.json();
   return resp.data;
 }
@@ -16,9 +16,10 @@ async function api_post(path, data) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(data),
+
   };
   let text = await fetch(
-    "http://localhost:4000/api/v1" + path, opts);
+    "http://smartcampaign.skyflume.com/api/v1" + path, opts);
   return await text.json();
 }
 
@@ -103,7 +104,7 @@ export async function create_response(response) {
   };
 
   let text = await fetch(
-    "http://localhost:4000/api/v1/responses", opts);
+    "http://smartcampaign.skyflume.com/api/v1/responses", opts);
   console.log(text);
   return await text.json();
 }
@@ -139,7 +140,7 @@ export async function create_post(post) {
     //  - multipart-form-data
   };
   let text = await fetch(
-    "http://localhost:4000/api/v1/posts", opts);
+    "http://smartcampaign.skyflume.com/api/v1/posts", opts);
   console.log(text);
   return await text.json();
 }

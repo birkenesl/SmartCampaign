@@ -7,7 +7,7 @@ import { create_post, fetch_posts, create_response, fetch_users } from '../api';
 
 
 function photo_path(post) {
-  return "http://localhost:4000/photos/" + post.photo_hash;
+  return "http://smartcampaign.skyflume.com/photos/" + post.photo_hash;
 }
 
 function Show({posts, session}) {

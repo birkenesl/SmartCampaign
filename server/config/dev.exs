@@ -23,10 +23,10 @@ config :smart_texts, SmartTextsWeb.Endpoint,
   watchers: []
 
 config :cors_plug,
-  origin: ["http://localhost:3000"],
-  max_age: 86400,
-  methods: ["GET", "POST", "PATCH", "DELETE"],
-  headers: ["x-auth", "content-type"]
+ origin: ["http://smartcampaigns.skyflume.com"],
+ max_age: 86400,
+ methods: ["GET", "POST", "PATCH", "DELETE"]
+ headers: ["x-auth", "content-type"]
 
 # ## SSL Support
 #
