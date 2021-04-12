@@ -5,21 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { create_post, fetch_post } from './api';
 
 
-
 function photo_path(post) {
   return "http://smartcampaign.skyflume.com/photos/" + post.photo_hash;
 }
 
 function ShowCampaign({posts, session}) {
-
-  async function chartFetch(opts) {
-
-    let resp = await fetch("https://quickchart.io/wordcloud/", opts);
-    return resp.json();
-
-  }
-
-
 
 
 
@@ -150,32 +140,48 @@ function ShowCampaign({posts, session}) {
     }
 
 
+    const chartObj = {
+      type: 'bar',                                // Show a bar chart
+      data: {
+        labels: ['Analytical', 'Anger', 'Confident', 'Fear', 'Joy', 'Sadness', 'Tentative'],   // Set X-axis labels
+      datasets: [{
+        label: 'Average Tone',
+        data: arr           // Add data to the chart
+      }]
+    }
+  }
+
     // this code attributed to quickchart.io documentation on js-functions
+    const myFormatterFunction = function(value) {
+      return "$" + value
+    };
+    const chartStr = JSON.stringify(chartObj).replace('""', myFormatterFunction.toString());
 
+    console.log(encodeURIComponent(chartStr));
 
-    const QuickChart = require('quickchart-js');
-
-    const myChart = new QuickChart();
-    myChart
-      .setConfig({
-        type: 'bar',
-        data: { labels: ['Analytical', 'Anger', 'Confident', 'Fear', 'Joy', 'Sadness', 'Tentative'],
-         datasets: [{ label: 'Average Tone', data: [analytical, anger, confident, fear, joy, sadness, tentative]}]},
-      })
-      .setWidth(250)
-      .setHeight(250)
-      .setBackgroundColor('transparent');
-
-    // Print the chart URL
-    let chartUrl = myChart.getUrl();
-
-
-
+    // let opts = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     backgroundColor: "transparent",
+    //     format: "png",
+    //     width: 500,
+    //     height: 500
+    //   }),
+    // };
+    // let resp = await fetch(
+    //   "https://quickchart.io/chart/create", opts);
+    // let respjs = resp.json();
+    // console.log(respjs);
 
 
     return (
       <div>
-        <Image src={chartUrl} />
+        <Row>
+          Hi
+        </Row>
       </div>
   );
   }
@@ -208,7 +214,24 @@ function ShowCampaign({posts, session}) {
     // sadly this will only work while deployed...
 
 
-
+    // let opts = {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   body: JSON.stringify({
+    //     text: allText,
+    //     format: "png",
+    //     width: 500,
+    //     height: 500,
+    //     removeStopwords: true,
+    //     fontFamily: "sans-serif",
+    //   }),
+    // };
+    // let resp = await fetch(
+    //   "https://quickchart.io/wordcloud/", opts);
+    // let respjs = resp.json();
+    // console.log(respjs);
 
     return (
       <div>
@@ -250,19 +273,16 @@ function ShowCampaign({posts, session}) {
         </Col>
       </Row>
       <Row>
-        <Col className="text-center">
-          <h4 className="text-center font-weight-bold">Generated Tone Graph</h4>
+        <Col>
+          <h4 className="text-center font-weight-bold">Generated WordCloud</h4>
           <WordCloud post={post}/>
 
         </Col>
       </Row>
 
-	  <Row>
-	  <Col>
 
       <ToneAnalysis post={post}/>
-	  </Col>
-	  </Row>
+
       <ListResponses post={post}/>
 
     </Container>
@@ -274,4 +294,3 @@ function ShowCampaign({posts, session}) {
 
 export default connect(
   ({posts, session}) => ({posts, session}))(ShowCampaign);
-
