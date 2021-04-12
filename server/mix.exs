@@ -46,7 +46,9 @@ defmodule SmartTexts.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:cors_plug, "~> 2.0"},
-      {:argon2_elixir, "~> 2.4"}
+      {:argon2_elixir, "~> 2.4"},
+      {:poison, "~> 3.1"},
+      {:httpoison, "~> 1.7"}
     ]
   end
 

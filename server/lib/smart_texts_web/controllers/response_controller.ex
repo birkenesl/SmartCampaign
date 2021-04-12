@@ -1,6 +1,8 @@
 defmodule SmartTextsWeb.ResponseController do
   use SmartTextsWeb, :controller
 
+  alias SmartTexts.Tones
+
   alias SmartTexts.Responses
   alias SmartTexts.Responses.Response
 
@@ -18,6 +20,7 @@ defmodule SmartTextsWeb.ResponseController do
   def create(conn, %{"response" => response_params}) do
 
     IO.puts("got here")
+    IO.inspect(Tones.read_tones("This is great, I really like it. But that makes me sad for sure."))
     user = conn.assigns[:current_user]
 
     response_params = response_params
@@ -31,7 +34,7 @@ defmodule SmartTextsWeb.ResponseController do
     |> Map.put("tentative", 0.0)
 
 
-    IO.inspect({:response, response_params})
+    #IO.inspect({:response, response_params})
 
 
     with {:ok, %Response{} = response} <- Responses.create_response(response_params) do

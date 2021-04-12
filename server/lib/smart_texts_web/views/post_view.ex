@@ -20,13 +20,12 @@ defmodule SmartTextsWeb.PostView do
     end
 
     responses = if Ecto.assoc_loaded?(post.responses) do
-      render_one(post.user, UserView, "user.json")
+      render_many(post.responses, ResponseView, "response.json")
     else
       nil
     end
-    responses = render_many(post.responses, ResponseView, "response.json")
 
-    IO.inspect(responses)
+    #IO.inspect(responses)
     %{
       id: post.id,
       title: post.title,

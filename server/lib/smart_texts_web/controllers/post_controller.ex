@@ -25,7 +25,7 @@ defmodule SmartTextsWeb.PostController do
     |> Map.put("user_id", user.id)
     |> Map.put("photo_hash", photo_hash)
 
-    IO.inspect({:post, post_params})
+    #IO.inspect({:post, post_params})
 
     with {:ok, %Post{} = post} <- Posts.create_post(post_params) do
       conn

@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.scss';
 import Nav from './Nav';
-import UsersList from './Users/List';
+//import UsersList from './Users/List';
 import UsersNew from './Users/New';
 import UsersNewBusiness from './Users/NewBusiness'
 import PostsNew from './Posts/New';
@@ -39,9 +39,6 @@ function App() {
         </Route>
         <Route path="/posts/:id">
           <Show />
-        </Route>
-        <Route path="/users" exact>
-          <UsersList />
         </Route>
         <Route path="/users/newBusiness" exact>
           <UsersNewBusiness />

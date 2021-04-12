@@ -43,8 +43,8 @@ function UsersList({users}) {
 
 }
 
-function state2props({users, user_form}) {
-  return { users, user_form };
+function state2props({users}) {
+  return { users};
 }
 
 export default connect(state2props)(UsersList);
