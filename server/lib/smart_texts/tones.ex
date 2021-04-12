@@ -16,20 +16,24 @@ defmodule SmartTexts.Tones do
     options = [params: [version: "2017-09-21", sentences: false]]
 
     HTTPoison.post(url, body, headers, options)
-    #case HTTPoison.post(url, body, headers, options) do
-    #{:ok, %HTTPoison.Response{status_code: 200, body: myBody}} ->
-      #%HTTPoison.Response{status_code: 200, body: myBody}
-    #{:ok, %HTTPoison.Response{status_code: 401, body: myBody}} ->
-      #%HTTPoison.Response{status_code: 401, body: myBody}
-    #{:error, %HTTPoison.Error{reason: reason}} ->
-      #IO.inspect reason
-    #end
+    case HTTPoison.post(url, body, headers, options) do
+    {:ok, %HTTPoison.Response{status_code: 200, body: myBody}} ->
+      myBody
+    {:error, %HTTPoison.Error{reason: reason}} ->
+      IO.inspect reason
+    end
 
   end
 
 
   def read_tones(text) do
-    getPage(text)
+    result = getPage(text)
+    decoded = Poison.decode!(result)
+    decoded["document_tone"]["tones"]
+
+    #IO.inspect(decoded)
+
+
 
   end
 

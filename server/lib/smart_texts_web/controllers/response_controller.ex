@@ -19,8 +19,9 @@ defmodule SmartTextsWeb.ResponseController do
 
   def create(conn, %{"response" => response_params}) do
 
+
     IO.puts("got here")
-    IO.inspect(Tones.read_tones("This is great, I really like it. But that makes me sad for sure."))
+
     user = conn.assigns[:current_user]
 
     response_params = response_params
@@ -33,8 +34,23 @@ defmodule SmartTextsWeb.ResponseController do
     |> Map.put("sadness", 0.0)
     |> Map.put("tentative", 0.0)
 
+    tones = Tones.read_tones(response_params["body"])
+    IO.inspect(tones)
+    #IO.inspect(tones[0]["tone_id"])
+    #IO.inspect(tones[0]["score"])
+    # since tones is usually 2 or 3 elements, we want to update the
+    # relevant elements in the response params and keep everything else as 0.
+    #IO.inspect(tones)
 
-    #IO.inspect({:response, response_params})
+    ibmTones = Map.new(tones, fn x ->
+      {x["tone_id"], x["score"]}
+      end
+    )
+
+    response_params = Map.merge(response_params, ibmTones)
+
+
+    IO.inspect({:response, response_params})
 
 
     with {:ok, %Response{} = response} <- Responses.create_response(response_params) do
